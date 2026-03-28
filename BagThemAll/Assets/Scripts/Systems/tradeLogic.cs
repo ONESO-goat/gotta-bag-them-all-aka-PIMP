@@ -1,19 +1,24 @@
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 
 
 public class TradeLogic{
     private Database db;
 
+    public bool isTradeActive;
+
     public TradeLogic(){
 
         db = new Database();
+        
+      
 
         if (db == null){
             
-            print("Unexpected error occured while grabbing database, please try again later.");
+            Console.WriteLine("Unexpected error occured while grabbing database, please try again later.");
             return; 
             }
     }
@@ -22,9 +27,9 @@ public class TradeLogic{
                              Collectables pokemonB,
                              Guid oldHolderId, 
                              Guid newHolderId, 
-                             Item item=null, 
                              string tradingType="double",
-                             string tradeFor="personal"){
+                             string tradeFor="personal",
+                             Item item=null){
 
     // tradingType = double, both user"s are trading collectables to one another
     // tradingType = single, 1 user is trading a collectable to the other
@@ -33,13 +38,13 @@ public class TradeLogic{
     // tradeFor = evolution, user"s are trading to evolve pokemon, this makes the trade more strict 
     
 
-    bool tradeActive = true;
+    isTradeActive = true;
 
     if (oldHolderId == null || newHolderId == null) {return false;}
-    if (pokemonA == null){ print("Are we trading air?"); return false;}
+    if (pokemonA == null){ Console.WriteLine("Are we trading air?"); return false;}
 
     if (tradingType.ToLower() == "double" && pokemonB == null){
-        print("Missing 2nd pokemon");
+        Console.WriteLine("Missing 2nd pokemon");
         return false;
     }
 
@@ -48,7 +53,7 @@ public class TradeLogic{
     if (player1 == null || player2 == null){ return false; }
 
     if (canTrade(pokemonA, pokemonB) == false){
-        print("One of the collectables is not tradable");
+        Console.WriteLine("One of the collectables is not tradable");
         return false;
     }
 
@@ -66,8 +71,8 @@ public class TradeLogic{
         return tradeSuccessful;} 
     
     catch (Exception e){
-            print($"Error occurred: {e}");
-            tradeActive = false;
+            Console.WriteLine($"Error occurred: {e}");
+            isTradeActive = false;
             rollbackTrade(pokemonA, pokemonB, player1, player2, tradingType);
             return false;
         
@@ -93,13 +98,14 @@ public class TradeLogic{
         }
 
     }
+    return false;
                              
 
 
 
     }
 
-    private void rollbackTrade(Collectables pokemonA, Collectables pokemonB, Player player1, Player player2, string tradingType){
+    private bool rollbackTrade(Collectables pokemonA, Collectables pokemonB, Player player1, Player player2, string tradingType){
         try{
             if (pokemonA == null){return false;} 
 
@@ -112,7 +118,7 @@ public class TradeLogic{
             }
             return true;
         } catch (Exception e){
-            print($"Error during rollback: {e}");
+            Console.WriteLine($"Error during rollback: {e}");
             return false;
         }
     }
@@ -121,4 +127,6 @@ public class TradeLogic{
         if (a.isTradable() == false || b?.isTradable() == false){ return false;}
         return true;
     }
+
+    public bool IsTradeActive => isTradeActive;
 }

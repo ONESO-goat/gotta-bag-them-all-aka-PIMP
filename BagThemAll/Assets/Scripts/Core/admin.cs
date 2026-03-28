@@ -8,9 +8,9 @@ using System.Linq;
 public class AdminControl
 {
 
-    private string adminKey = "admin123"; // This should be stored securely in a real application
+
     private bool isAdminLoggedIn = false;
-    private string adminPassword = adminKey; 
+    private string adminPassword = "admin123"; // This should be stored securely in a real application
 
     Database database = new Database();
 

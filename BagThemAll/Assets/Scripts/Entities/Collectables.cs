@@ -139,7 +139,7 @@ public class Collectables{
             itemBeingHeldId = id;
 
         } catch (Exception e){
-            print($"Error: {e}");
+            Console.WriteLine($"Error: {e}");
         }
     }
 
@@ -147,14 +147,14 @@ public class Collectables{
         if (newName.Length <= 0 || 
             string.IsNullOrWhiteSpace(newName)){ return; }
 
-        print($"You are changing your collectables name to {newName}, confirm changes? (Y/N)");
+        Console.WriteLine($"You are changing your collectables name to {newName}, confirm changes? (Y/N)");
          string choice = Console.ReadLine();
         if (choice.ToLower() == "y"){
             this.nickName = newName;
-            print("Changes successful");
-            print($"Hello, {newName} :)");
+            Console.WriteLine("Changes successful");
+            Console.WriteLine($"Hello, {newName} :)");
             return;
-        } else {print("Changes cancelled"); return;}
+        } else {Console.WriteLine("Changes cancelled"); return;}
 
 
         
@@ -164,9 +164,16 @@ public class Collectables{
 
     public string GetEvolutionType(){ return this.evolutionType; }
 
+    public void RemoveItem(){
+        this.itemBeingHeld = null;
+        this.itemBeingHeldId = 0;
+    }
+
+    public int getFriendShipLevel(){ return this.friendShipLevel; }
+    
     public void SetLevel(int level){
         if (level < 0){
-            Utils.print("Level cannot be negative.");
+            Console.WriteLine("Level cannot be negative.");
             return;
         }
 
@@ -174,15 +181,15 @@ public class Collectables{
         }
 
     public long? GetCatchRate(){
-        return this.catchRate ?? null;
+        return this.catchRate;
     }
 
     public void showInfo(){
-        print($"Name: {this.Name}");
-        print($"Nickname: {this.nickName}");
-        print($"Level: {this.level}");
-        print($"Element: {this.element}");
-        print($"Held Item: {this.itemBeingHeld?.GetName() ?? "None"}");
+        Console.WriteLine($"Name: {this.Name}");
+        Console.WriteLine($"Nickname: {this.nickName}");
+        Console.WriteLine($"Level: {this.level}");
+        Console.WriteLine($"Element: {this.element}");
+        Console.WriteLine($"Held Item: {this.itemBeingHeld?.GetName() ?? "None"}");
     }
 
   
@@ -209,9 +216,9 @@ class Pokemon : Collectables{
         if (this.GetEvolutionType() == "level"){
             this.SetLevel(this.level + 1);
         } else if (this.GetEvolutionType() == "trade"){
-            Utils.print("This pokemon evolves through trading, please trade it to evolve.");
+            Console.WriteLine("This pokemon evolves through trading, please trade it to evolve.");
         } else {
-            Utils.print("This pokemon does not evolve.");
+            Console.WriteLine("This pokemon does not evolve.");
         }
     }
 }

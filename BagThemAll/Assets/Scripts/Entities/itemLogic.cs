@@ -21,7 +21,7 @@ public class Item{
 
     public void setHolder(Collectables pokemon){
         if (pokemon == null){
-            Utils.print("Pokemon is null, cannot set holder.");
+            Console.WriteLine("Pokemon is null, cannot set holder.");
             return;
         }
 

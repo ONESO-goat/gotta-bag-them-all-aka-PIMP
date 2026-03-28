@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public class Database{
 
-    Player player1 = new Player();
-
     private List<Player> thePlayers = new List<Player>();
 
     public List<Player> GetPlayers(){
@@ -24,7 +22,7 @@ public class Database{
         }
 
         if (tarGet == null){
-            Utils.print("User was not found.");
+            Console.WriteLine("User was not found.");
             return null;
         }
         return tarGet;
@@ -42,7 +40,7 @@ public class Database{
         }
 
         if (tarGet == null){
-            Utils.print("User was not found.");
+            Console.WriteLine("User was not found.");
             return null;
         }
         return tarGet;
@@ -50,7 +48,7 @@ public class Database{
 
     public void AddPlayer(Player player){
         if (player == null){
-            Utils.print("Player is null, cannot Add to database.");
+            Console.WriteLine("Player is null, cannot Add to database.");
             return;
         }
 
@@ -60,7 +58,7 @@ public class Database{
     public void RemovePlayer(Guid id){
         Player tarGet = GetPlayerById(id);
         if (tarGet == null){
-            Utils.print("Player was not found, cannot Remove from database.");
+            Console.WriteLine("Player was not found, cannot Remove from database.");
             return;
         }
 
@@ -69,13 +67,13 @@ public class Database{
 
     public void UpdatePlayer(Player UpdatedPlayer){
         if (UpdatedPlayer == null){
-            Utils.print("Updated player is null, cannot Update database.");
+            Console.WriteLine("Updated player is null, cannot Update database.");
             return;
         }
 
         Player tarGet = GetPlayerById(UpdatedPlayer.GetId());
         if (tarGet == null){
-            Utils.print("Player was not found, cannot Update database.");
+            Console.WriteLine("Player was not found, cannot Update database.");
             return;
         }
 
@@ -85,19 +83,21 @@ public class Database{
 
     public void showAllPlayers(){
         if (thePlayers.Count == 0){
-            Utils.print("No players in database.");
+            Console.WriteLine("No players in database.");
             return;
         }
 
+        var index = 1;
         foreach (Player player in thePlayers){
-            Utils.print($"Player: {player.GetName()}, ID: {player.GetId()}");
-        }
+            Console.WriteLine($"\nPlayer {index}: {player.GetName()}, ID: {player.GetId()}\n");
+        
+            index++;}
     }
 
     public void BanPlayer(Guid id){
         Player tarGet = GetPlayerById(id);
         if (tarGet == null){
-            Utils.print("Player was not found, cannot ban.");
+            Console.WriteLine("Player was not found, cannot ban.");
             return;
         }
 
@@ -107,7 +107,7 @@ public class Database{
     public void UnbanPlayer(Guid id){
         Player tarGet = GetPlayerById(id);
         if (tarGet == null){
-            Utils.print("Player was not found, cannot unban.");
+            Console.WriteLine("Player was not found, cannot unban.");
             return;
         }
 

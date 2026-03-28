@@ -35,7 +35,7 @@ public class Utils{
         } else if (c == "restart")
         { // TODO: Find a way to read who ever clicked restart.
             Database db = new Database();
-            Player player = db.FindPlayerById();
+            //Player player = db.GetPlayerById(0);
         }
     }
 }

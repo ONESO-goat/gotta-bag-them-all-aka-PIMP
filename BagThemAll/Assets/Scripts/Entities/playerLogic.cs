@@ -7,7 +7,7 @@ public class Player{
 
     private readonly Guid id;
 
-    public string SignUpName { get; set; }
+    public string SignUpName;
 
     public int modelChoice;
 
@@ -69,13 +69,13 @@ public class Player{
         // TODO: Add sorting and filtering options
 
         foreach (Collectables c in this.Pokemon){
-            Utils.print($"Name: {c.Name}, Nickname: {c.nickName}, Level: {c.level}, Element: {c.element}");
+            Console.WriteLine($"Name: {c.Name}, Nickname: {c.nickName}, Level: {c.level}, Element: {c.element}");
         }
     }
 
     public void AddHoursPlayed(int hours){
         if (hours < 0){
-            Utils.print("Hours played cannot be negative.");
+            Console.WriteLine("Hours played cannot be negative.");
             return;
         }
 
@@ -89,7 +89,7 @@ public class Player{
     public void AddNewCollectable(Collectables chara){
         try{
             if (chara == null){
-                Utils.print("Collectable is null, cannot Add.");
+                Console.WriteLine("Collectable is null, cannot Add.");
                 return;
             }
 
@@ -100,26 +100,26 @@ public class Player{
 
         } catch ( Exception e){
 
-            Utils.print($"Error: {e}");
+            Console.WriteLine($"Error: {e}");
         }
     }
 
     public void RemoveCollectable(Collectables chara){
         try{
             if (chara == null){
-                Utils.print("Collectable is null, cannot Remove.");
+                Console.WriteLine("Collectable is null, cannot Remove.");
                 return;
             }
 
             Pokemon.Remove(chara);
         } catch (Exception e){
-            print();
+            Console.WriteLine($"Error: {e}");
         }
     }
 
     public void SetLevel(int level){
         if (level < 0){
-            Utils.print("Level cannot be negative.");
+            Console.WriteLine("Level cannot be negative.");
             return;
         }
 
@@ -136,30 +136,30 @@ public class Player{
 
             this.playerName = newName;
 
-            Utils.print("Changes successful");
+            Console.WriteLine("Changes successful");
 
-            Utils.print($"Hello, {newName}.)");
+            Console.WriteLine($"Hello, {newName}.)");
 
             return;
-        } else {Utils.print("Changes cancelled"); return;}
+        } else {Console.WriteLine("Changes cancelled"); return;}
 }
 
-    public void GetPasswordHash(){
+    public string GetPasswordHash(){
         return this.password;
     }
 
     public void showInfo(){
-        Utils.print($"Name: {this.playerName}");
-        Utils.print($"Model Choice: {this.modelChoice}");
-        Utils.print($"Status: {this.status}");
-        Utils.print($"Hours Played: {this.hoursPlayed}");
+        Console.WriteLine($"Name: {this.playerName}");
+        Console.WriteLine($"Model Choice: {this.modelChoice}");
+        Console.WriteLine($"Status: {this.status}");
+        Console.WriteLine($"Hours Played: {this.hoursPlayed}");
     }
 
     public void GetNameAndId(){
-        Utils.print($"Name: {this.playerName}, ID: {this.id}");
+        Console.WriteLine($"Name: {this.playerName}, ID: {this.id}");
     }
 
-    public void GetNickname(){
+    public string GetNickname(){
         return this.playerName;
     }
 }

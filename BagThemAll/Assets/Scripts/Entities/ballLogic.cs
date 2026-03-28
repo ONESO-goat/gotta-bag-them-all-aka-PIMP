@@ -15,7 +15,7 @@ public class Ball{
 
     public void setPokemonInside(Collectables pokemon){
         if (pokemon == null){
-            Utils.print("Pokemon is null, cannot set inside ball.");
+            Console.WriteLine("Pokemon is null, cannot set inside ball.");
             return;
         }
 
